@@ -1,0 +1,31 @@
+PODS:
+  - Alamofire (4.0.1)
+  - AlamofireImage (3.1.0):
+    - Alamofire (~> 4.0)
+  - DZNEmptyDataSet (1.8.1)
+  - ObjectMapper (2.2.0)
+  - SVProgressHUD (2.0.3)
+  - SVPullToRefresh (0.4.1)
+  - SwiftyJSON (3.0.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.0)
+  - AlamofireImage (~> 3.0)
+  - DZNEmptyDataSet
+  - ObjectMapper (~> 2.0)
+  - SVProgressHUD
+  - SVPullToRefresh
+  - SwiftyJSON (~> 3.0.0)
+
+SPEC CHECKSUMS:
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  AlamofireImage: bb8c8351c51cb1633bb6be69b6dbbaff37ce65b7
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  ObjectMapper: 4060d739febae11ab0c6af8d786f98667c82e1bd
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
+  SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
+
+PODFILE CHECKSUM: 3776c7475765fe1d046fc674f2bc4d175785a8a4
+
+COCOAPODS: 1.1.1
