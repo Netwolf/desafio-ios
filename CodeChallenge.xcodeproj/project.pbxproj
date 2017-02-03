@@ -20,12 +20,14 @@
 		7F29FDA71E021E6F0053CC05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F29FDA61E021E6F0053CC05 /* Assets.xcassets */; };
 		7F29FDAE1E0222D30053CC05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F29FDAA1E0222D30053CC05 /* LaunchScreen.storyboard */; };
 		7F29FDAF1E0222D30053CC05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F29FDAC1E0222D30053CC05 /* Main.storyboard */; };
-		7F29FDB41E0225890053CC05 /* RepositoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F29FDB21E0225890053CC05 /* RepositoryViewController.swift */; };
 		7F29FDB81E0225B90053CC05 /* RepositoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F29FDB71E0225B90053CC05 /* RepositoryController.swift */; };
 		7F29FDBC1E022F2A0053CC05 /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F29FDBB1E022F2A0053CC05 /* SweetAlert.swift */; };
 		7F29FDBE1E02327A0053CC05 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F29FDBD1E02327A0053CC05 /* Extensions.swift */; };
 		7F29FDC01E0237FC0053CC05 /* InternetMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F29FDBF1E0237FC0053CC05 /* InternetMonitor.swift */; };
 		7F96AC431E4404D100CA0B2C /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F96AC421E4404D100CA0B2C /* Owner.swift */; };
+		AEFEBD321E451D9600453CC6 /* PullRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFEBD311E451D9600453CC6 /* PullRequestCell.swift */; };
+		AEFEBD341E451EB700453CC6 /* RepositoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFEBD331E451EB700453CC6 /* RepositoryViewController.swift */; };
+		AEFEBD361E451ED700453CC6 /* PullRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFEBD351E451ED700453CC6 /* PullRequestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,13 +69,15 @@
 		7F29FDA61E021E6F0053CC05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = CodeChallenge/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		7F29FDAB1E0222D30053CC05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = CodeChallenge/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7F29FDAD1E0222D30053CC05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = CodeChallenge/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		7F29FDB21E0225890053CC05 /* RepositoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepositoryViewController.swift; path = CodeChallenge/Views/Movies/RepositoryViewController.swift; sourceTree = SOURCE_ROOT; };
 		7F29FDB71E0225B90053CC05 /* RepositoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepositoryController.swift; path = CodeChallenge/Controllers/RepositoryController.swift; sourceTree = SOURCE_ROOT; };
 		7F29FDBB1E022F2A0053CC05 /* SweetAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SweetAlert.swift; path = CodeChallenge/Utils/SweetAlert.swift; sourceTree = SOURCE_ROOT; };
 		7F29FDBD1E02327A0053CC05 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = CodeChallenge/Utils/Extensions.swift; sourceTree = SOURCE_ROOT; };
 		7F29FDBF1E0237FC0053CC05 /* InternetMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InternetMonitor.swift; path = CodeChallenge/Utils/InternetMonitor.swift; sourceTree = SOURCE_ROOT; };
 		7F96AC421E4404D100CA0B2C /* Owner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Owner.swift; path = CodeChallenge/Model/Owner.swift; sourceTree = SOURCE_ROOT; };
 		A297A54D3776E2F588BC4A47 /* Pods-CodeChallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeChallenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeChallenge/Pods-CodeChallenge.release.xcconfig"; sourceTree = "<group>"; };
+		AEFEBD311E451D9600453CC6 /* PullRequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PullRequestCell.swift; path = CodeChallenge/Views/Cells/PullRequestCell.swift; sourceTree = SOURCE_ROOT; };
+		AEFEBD331E451EB700453CC6 /* RepositoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepositoryViewController.swift; path = CodeChallenge/Views/Repository/RepositoryViewController.swift; sourceTree = SOURCE_ROOT; };
+		AEFEBD351E451ED700453CC6 /* PullRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PullRequestViewController.swift; path = CodeChallenge/Views/Repository/PullRequestViewController.swift; sourceTree = SOURCE_ROOT; };
 		B412751AC0CC37347BF0D058 /* Pods-CodeChallenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeChallenge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeChallenge/Pods-CodeChallenge.debug.xcconfig"; sourceTree = "<group>"; };
 		EBA5861BDC08B765755F9324 /* Pods_CodeChallenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeChallenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -215,7 +219,7 @@
 		7F0FF0631DC031CC00D973BE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				AE3E24451DC24EA60012BCD1 /* Movies */,
+				AE3E24451DC24EA60012BCD1 /* Repository */,
 				AE3E24441DC24E860012BCD1 /* Cells */,
 			);
 			name = Views;
@@ -243,16 +247,18 @@
 			isa = PBXGroup;
 			children = (
 				7F29FD921E021D810053CC05 /* RepositoryCell.swift */,
+				AEFEBD311E451D9600453CC6 /* PullRequestCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
 		};
-		AE3E24451DC24EA60012BCD1 /* Movies */ = {
+		AE3E24451DC24EA60012BCD1 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				7F29FDB21E0225890053CC05 /* RepositoryViewController.swift */,
+				AEFEBD331E451EB700453CC6 /* RepositoryViewController.swift */,
+				AEFEBD351E451ED700453CC6 /* PullRequestViewController.swift */,
 			);
-			name = Movies;
+			name = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -442,9 +448,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEFEBD321E451D9600453CC6 /* PullRequestCell.swift in Sources */,
 				7F29FD961E021D900053CC05 /* AppDelegate.swift in Sources */,
 				7F29FD931E021D810053CC05 /* RepositoryCell.swift in Sources */,
 				7F29FDC01E0237FC0053CC05 /* InternetMonitor.swift in Sources */,
+				AEFEBD361E451ED700453CC6 /* PullRequestViewController.swift in Sources */,
+				AEFEBD341E451EB700453CC6 /* RepositoryViewController.swift in Sources */,
 				7F29FDBC1E022F2A0053CC05 /* SweetAlert.swift in Sources */,
 				7F29FDB81E0225B90053CC05 /* RepositoryController.swift in Sources */,
 				7F29FD9B1E021DA10053CC05 /* Routers.swift in Sources */,
@@ -453,7 +462,6 @@
 				7F29FD971E021D900053CC05 /* Constants.swift in Sources */,
 				7F29FD9D1E021DB70053CC05 /* RepositoryService.swift in Sources */,
 				7F96AC431E4404D100CA0B2C /* Owner.swift in Sources */,
-				7F29FDB41E0225890053CC05 /* RepositoryViewController.swift in Sources */,
 				7F29FDBE1E02327A0053CC05 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

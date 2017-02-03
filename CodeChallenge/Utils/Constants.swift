@@ -18,11 +18,12 @@ struct Constants {
     struct Layout {
         static let PlaceholderRepository = UIImage(named: "PlaceholderRepository")!
         static let PlaceholderPerson = UIImage(named: "PlaceholderPerson")!
-        static let IMDBBlue = UIImage(named: "IMDBBlue")!
     }
     
     struct Cell {
         static let RepositoryCell = "RepositoryCell"
+        static let PullRequestCell = "PullRequestCell"
+
     }
     
     struct InternetStatus {

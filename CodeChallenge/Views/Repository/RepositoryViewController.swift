@@ -156,7 +156,7 @@ class RepositoryViewController: UIViewController {
         idleTimer.invalidate()
     }
     
-    func timerLoadMovieByName() {
+    func timerLoadRepositoriesByNamex() {
         if let search = searchBar.text {
             if !search.isBlank() {
                 page = 1
@@ -254,7 +254,7 @@ extension RepositoryViewController: UITableViewDelegate, UITableViewDataSource {
 extension RepositoryViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         stopIdleTimer()
-        idleTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self, selector: #selector(timerLoadMovieByName), userInfo: nil, repeats: false)
+        idleTimer = Timer.scheduledTimer(timeInterval: 0.8, target: self, selector: #selector(timerLoadRepositoriesByName), userInfo: nil, repeats: false)
         return true
     }
     
