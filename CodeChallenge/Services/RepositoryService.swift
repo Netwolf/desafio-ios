@@ -27,11 +27,11 @@ struct RepositoryService {
                         return
                     }
                     
-                    guard let products = Mapper<Repository>().mapArray(JSONArray: items) else {
+                    guard let repositories = Mapper<Repository>().mapArray(JSONArray: items) else {
                         viewCallback(Result.error("Error reading the repositories."))
                         return
                     }
-                    viewCallback(Result.success(products))
+                    viewCallback(Result.success(repositories))
                     break
                 case .error(let error):
                     viewCallback(Result.error(error))

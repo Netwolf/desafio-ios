@@ -13,15 +13,18 @@ import DZNEmptyDataSet
 class PullRequestViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    
-    let searchBar: UISearchBar = UISearchBar()
+    @IBOutlet weak var labelOpened: UILabel!
+    @IBOutlet weak var labelClosed: UILabel!
 
+    let searchBar: UISearchBar = UISearchBar()
+    var repositoryDetailed: Repository!
     var arrayPullRequests = [PullRequest]()
     var arrayPullRequestsFiltered = [PullRequest]()
     var isFilterName = false
     var refreshControl: UIRefreshControl!
     var buttonSearch: UIBarButtonItem!
-    var repositoryDetailed: Repository!
+    var pullRequestSelected: PullRequest!
+    var idleTimer = Timer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +32,15 @@ class PullRequestViewController: UIViewController {
         configSearch()
         configRefresh()
         NotificationCenter.default.addObserver(self, selector: #selector(RepositoryViewController.internetStatusChanged), name: NSNotification.Name(rawValue: Constants.InternetStatus.StatusChanged), object: nil)
+        navigationController?.navigationBar.topItem?.title = ""
+        initialSearch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        RepositoryController.sharedInstance.delegate = self
+        PullRequestController.sharedInstance.delegate = self
         if !isFilterName {
-            navigationController?.visibleViewController?.title = repositoryDetailed.name
+            navigationController?.visibleViewController?.title = repositoryDetailed.fullName
         }
     }
     
@@ -55,16 +60,24 @@ class PullRequestViewController: UIViewController {
         tableView.estimatedRowHeight = 100
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.tableFooterView?.isHidden = true
-        tableView.tableHeaderView = UIView(frame: CGRect.zero)
-        tableView.tableHeaderView?.isHidden = true
+        let px = 2 / UIScreen.main.scale
+        let frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: px)
+        let line = UIView(frame: frame)
+        tableView.tableHeaderView = line
+        line.backgroundColor = tableView.separatorColor
+        
         tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     func internetStatusChanged() {
         tableView.reloadEmptyDataSet()
         if InternetMonitor.sharedInstance.isConnectedToNetworkAtTheMoment() {
+            labelClosed.isHidden = false
+            labelOpened.isHidden = false
             initialSearch()
         } else {
+            labelClosed.isHidden = true
+            labelOpened.isHidden = true
             arrayPullRequests.removeAll()
             arrayPullRequestsFiltered.removeAll()
             tableView.emptyDataSetSource = self
@@ -80,14 +93,13 @@ class PullRequestViewController: UIViewController {
     }
     
     func refresh(_ sender:AnyObject) {
-        loadPullsRequests()
+        loadPullRequests()
     }
     
     func initialSearch() {
         cancelSearch()
-        loadPullsRequests()
+        loadPullRequests()
     }
-    
     
     func configRefresh() {
         refreshControl = UIRefreshControl()
@@ -123,32 +135,35 @@ class PullRequestViewController: UIViewController {
         searchBar.text = ""
         isFilterName = false
         stopIdleTimer()
-        page = 1
         navigationController?.visibleViewController?.navigationItem.titleView = nil
-        navigationController?.visibleViewController?.title = "Github JavaPop"
+        navigationController?.visibleViewController?.title = repositoryDetailed.fullName
         navigationController?.visibleViewController?.navigationItem.rightBarButtonItems = [buttonSearch!]
         tableView.reloadData()
+        PullRequestController.sharedInstance.calculateOpenAndClosedRequests(pullRequests: arrayPullRequests)
+
     }
     
-    func loadMovies() {
+    func loadPullRequests() {
         if isFilterName {
             filterByName()
         } else {
-            RepositoryController.sharedInstance.findRepositories(page: page)
+            PullRequestController.sharedInstance.findPullRequestsBy(repository: repositoryDetailed)
         }
     }
     
     func filterByName() {
         if let text = searchBar.text {
-            arrayPullRequestsFiltered = arrayPullRequests.filter({ repository -> Bool in
-                guard let fullName = repository.fullName else {
+            arrayPullRequestsFiltered = arrayPullRequests.filter({ pullRequest -> Bool in
+                guard let title = pullRequest.title else {
                     return true
                 }
-                return fullName.lowercased().contains(text.lowercased())
+                return title.lowercased().contains(text.lowercased())
             })
         }
         stopRefresh()
         tableView.reloadData()
+        PullRequestController.sharedInstance.calculateOpenAndClosedRequests(pullRequests: arrayPullRequestsFiltered)
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -164,21 +179,20 @@ class PullRequestViewController: UIViewController {
     func timerLoadPullRepositoryByName() {
         if let search = searchBar.text {
             if !search.isBlank() {
-                page = 1
-                loadMovies()
+                loadPullRequests()
             }
         }
     }
 }
 
-extension RepositoryViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+extension PullRequestViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         return UIImage(named: "noInternet")
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "No Repositories Founded"
+        let text = "No pull requests ounded"
         let attribs = [
             NSFontAttributeName: UIFont.boldSystemFont(ofSize: 18),
             NSForegroundColorAttributeName: UIColor.darkGray
@@ -208,16 +222,7 @@ extension RepositoryViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelega
     }
 }
 
-extension RepositoryViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        let currentOffset = scrollView.contentOffset.y
-        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        if maximumOffset - currentOffset <= 20.0 {
-            page = page + 1
-            loadMovies()
-        }
-    }
+extension PullRequestViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFilterName {
@@ -247,14 +252,37 @@ extension RepositoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isFilterName {
-            repositorySelected = arrayRepositoriesFiltered[indexPath.row]
+            pullRequestSelected = arrayPullRequestsFiltered[indexPath.row]
         } else {
-            repositorySelected = arrayRepositories[indexPath.row]
+            pullRequestSelected = arrayPullRequests[indexPath.row]
         }
-
+        guard let urlPage = pullRequestSelected.htmlUrl else {
+            _ = SweetAlert().showAlert("Error!", subTitle: "Could not open this pull request page.", style: AlertStyle.error)
+            return
+        }
+        PullRequestController.sharedInstance.openPullRequestPage(urlPage: urlPage)
     }
 }
 
+extension PullRequestViewController: DelegatePullRequest {
+    func pullRequestNotFoundWith(error: String) {
+        _ = SweetAlert().showAlert("Error!", subTitle: error, style: AlertStyle.error)
+        stopRefresh()
+    }
+    
+    func pullRequestFoundWithSuccess(pullRequests: [PullRequest]) {
+        arrayPullRequests = pullRequests
+        arrayPullRequestsFiltered = pullRequests
+        tableView.reloadData()
+        stopRefresh()
+        PullRequestController.sharedInstance.calculateOpenAndClosedRequests(pullRequests: arrayPullRequests)
+    }
+    
+    func totalOpenAndClosedRequests(open: Double, closed: Double) {
+        labelOpened.text = String(format:"%.0f", open) + " opened"
+        labelClosed.text = " / \(String(format:"%.0f", closed)) closed"
+    }
+}
 
 extension PullRequestViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -267,8 +295,7 @@ extension PullRequestViewController: UISearchBarDelegate {
         stopIdleTimer()
         if let search = searchBar.text {
             if !search.isBlank() {
-                page = 1
-                loadPullsRequests()
+                loadPullRequests()
                 searchBar.resignFirstResponder()
             }
         }

@@ -28,15 +28,13 @@ class PullRequestCell: UITableViewCell {
     
     
     func configure(_ object: AnyObject) {
-        let repository = object as! Repository
-        labelNameRepository.text = repository.fullName
-        labelDescription.text = repository.description
-        labelForks.text = String(format:"%.0f", repository.forksCount)
-        labelLikes.text = String(format:"%.0f", repository.starsCount)
-        labelUserName.text = repository.owner?.login
-        labelFullName.text = repository.owner?.login
-        
-        guard let avatarUrl = repository.owner?.avatarUrl else {
+        let pullRequest = object as! PullRequest
+        labelTitle.text = pullRequest.title
+        labelDescription.text = pullRequest.body
+        labelUserName.text = pullRequest.user?.login
+        labelFullName.text = pullRequest.user?.login
+
+        guard let avatarUrl = pullRequest.user?.avatarUrl else {
             imageViewUser.image = Constants.Layout.PlaceholderPerson
             return
         }

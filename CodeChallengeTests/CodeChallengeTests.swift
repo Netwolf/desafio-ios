@@ -1,13 +1,12 @@
 //
-//  PratizTests.swift
-//  PratizTests
+//  CodeChallengeTests.swift
+//  CodeChallengeTests
 //
-//  Created by Fabricio Oliveira on 10/25/16.
-//  Copyright © 2016 Fabricio Oliveira. All rights reserved.
+//  Created by Fabricio Oliveira on 2/3/17.
+//  Copyright © 2017 Fabricio Oliveira. All rights reserved.
 //
 
 import XCTest
-@testable import CodeChallenge
 
 class CodeChallengeTests: XCTestCase {
     

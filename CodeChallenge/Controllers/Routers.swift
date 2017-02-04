@@ -10,9 +10,12 @@ import Foundation
 
 enum MainRouter: RestShipResource {
     case repositories
+    case pullRequests(String, String)
+
     var name: String {
         switch self {
         case .repositories: return "/search/repositories"
+        case .pullRequests(let loginUser, let nameRep): return "/repos/\(loginUser)/\(nameRep)/pulls"
         }
     }
 }

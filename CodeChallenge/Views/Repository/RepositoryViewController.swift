@@ -27,9 +27,6 @@ class RepositoryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         RepositoryController.sharedInstance.delegate = self
-        if !isFilterName {
-            navigationController?.visibleViewController?.title = "Github JavaPop"
-        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -42,6 +39,9 @@ class RepositoryViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if !isFilterName {
+            navigationController?.visibleViewController?.title = "Github JavaPop"
+        }
     }
     
     func configTableView() {
@@ -74,13 +74,13 @@ class RepositoryViewController: UIViewController {
     
     func refresh(_ sender:AnyObject) {
         page = 1
-        loadMovies()
+        loadRepositories()
     }
     
     func initialSearch() {
         cancelSearch()
         page = 1
-        loadMovies()
+        loadRepositories()
     }
     
     
@@ -125,7 +125,7 @@ class RepositoryViewController: UIViewController {
         tableView.reloadData()
     }
     
-    func loadMovies() {
+    func loadRepositories() {
         if isFilterName {
             filterByName()
         } else {
@@ -148,7 +148,8 @@ class RepositoryViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.DetailRepositorySegue {
-            
+            let vc = segue.destination as! PullRequestViewController
+            vc.repositoryDetailed = repositorySelected
         }
     }
     
@@ -156,11 +157,11 @@ class RepositoryViewController: UIViewController {
         idleTimer.invalidate()
     }
     
-    func timerLoadRepositoriesByNamex() {
+    func timerLoadRepositoriesByName() {
         if let search = searchBar.text {
             if !search.isBlank() {
                 page = 1
-                loadMovies()
+                loadRepositories()
             }
         }
     }
@@ -173,7 +174,7 @@ extension RepositoryViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelega
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "No Repositories Founded"
+        let text = "No repositories Founded"
         let attribs = [
             NSFontAttributeName: UIFont.boldSystemFont(ofSize: 18),
             NSForegroundColorAttributeName: UIColor.darkGray
@@ -210,7 +211,7 @@ extension RepositoryViewController: UITableViewDelegate, UITableViewDataSource {
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
         if maximumOffset - currentOffset <= 20.0 {
             page = page + 1
-            loadMovies()
+            loadRepositories()
         }
     }
     
@@ -246,7 +247,7 @@ extension RepositoryViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             repositorySelected = arrayRepositories[indexPath.row]
         }
-        //RepositoryController.sharedInstance.detailMovieBy(id: repositorySelected!.id)
+        performSegue(withIdentifier: Constants.Segue.DetailRepositorySegue, sender: self)
     }
 }
 
@@ -263,7 +264,7 @@ extension RepositoryViewController: UISearchBarDelegate {
         if let search = searchBar.text {
             if !search.isBlank() {
                 page = 1
-                loadMovies()
+                loadRepositories()
                 searchBar.resignFirstResponder()
             }
         }
