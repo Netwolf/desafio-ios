@@ -5,14 +5,20 @@ use_frameworks!
 
 target 'CodeChallenge' do
     pod 'ObjectMapper', '~> 2.0'
-	pod 'SVProgressHUD' # Obj-c
+    pod 'SVProgressHUD' # Obj-c
     pod 'Alamofire', '~> 4.0'
     pod 'AlamofireImage', '~> 3.0'
     pod 'SwiftyJSON', '~> 3.0.0'
     pod 'SVPullToRefresh' # Obj-c
     pod 'DZNEmptyDataSet'
-
+    
 end
+
+target 'CodeChallengeTests' do
+    pod 'ObjectMapper', '~> 2.0'
+    pod 'SwiftyJSON', '~> 3.0.0'
+end
+
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|

@@ -65,7 +65,6 @@ class PullRequestViewController: UIViewController {
         let line = UIView(frame: frame)
         tableView.tableHeaderView = line
         line.backgroundColor = tableView.separatorColor
-        
         tableView.rowHeight = UITableViewAutomaticDimension
     }
     

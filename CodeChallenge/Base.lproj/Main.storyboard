@@ -301,6 +301,7 @@
             <objects>
                 <navigationController title="Code Challenge" automaticallyAdjustsScrollViewInsets="NO" id="PER-4y-4d1" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="a3Y-vZ-Cb1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
