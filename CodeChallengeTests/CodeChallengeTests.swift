@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import ObjectMapper
 
 class CodeChallengeTests: XCTestCase {
     
@@ -32,4 +33,74 @@ class CodeChallengeTests: XCTestCase {
         }
     }
     
+    func testFilterArrayByProperty() {
+        let dictionaryOne = ["title": "Title of Pull Request" as AnyObject,
+                             "state": "closed" as AnyObject,
+                             "html_url": "https://github.com/ReactiveX/RxJava/" as AnyObject,
+                             "body": "body" as AnyObject,
+                             "user": ["login": "login" as AnyObject,
+                                      "avatar_url": "https://avatars.githubusercontent.com/u/1269832?v=3" as AnyObject] as AnyObject]
+        guard let pullRequestOne = Mapper<PullRequest>().map(JSON: dictionaryOne) else {
+            return
+        }
+        
+        let dictionaryTwo = ["title": "Title of Pull Request" as AnyObject,
+                             "state": "closed" as AnyObject,
+                             "html_url": "https://github.com/ReactiveX/RxJava/" as AnyObject,
+                             "body": "body" as AnyObject,
+                             "user": ["login": "login" as AnyObject,
+                                      "avatar_url": "https://avatars.githubusercontent.com/u/1269832?v=3" as AnyObject] as AnyObject]
+        guard let pullRequestTwo = Mapper<PullRequest>().map(JSON: dictionaryTwo) else {
+            return
+        }
+        
+        let pullRequests = [pullRequestTwo, pullRequestOne]
+        
+        let text = "titlee"
+        let arrayFiltered = pullRequests.filter({ pullRequest -> Bool in
+            guard let title = pullRequest.title else {
+                return true
+            }
+            return title.lowercased().contains(text.lowercased())
+        })
+        
+        XCTAssertEqual(arrayFiltered.count, 0)
+    }
+    
+    
+    
+    func testCalculateOpenAndClosedRequests() {
+        let dictionaryOne = ["title": "Title of Pull Request" as AnyObject,
+                             "state": "closed" as AnyObject,
+                             "html_url": "https://github.com/ReactiveX/RxJava/" as AnyObject,
+                             "body": "body" as AnyObject,
+                             "user": ["login": "login" as AnyObject,
+                                      "avatar_url": "https://avatars.githubusercontent.com/u/1269832?v=3" as AnyObject] as AnyObject]
+        guard let pullRequestOne = Mapper<PullRequest>().map(JSON: dictionaryOne) else {
+            return
+        }
+        
+        let dictionaryTwo = ["title": "Title of Pull Request" as AnyObject,
+                             "state": "closed" as AnyObject,
+                             "html_url": "https://github.com/ReactiveX/RxJava/" as AnyObject,
+                             "body": "body" as AnyObject,
+                             "user": ["login": "login" as AnyObject,
+                                      "avatar_url": "https://avatars.githubusercontent.com/u/1269832?v=3" as AnyObject] as AnyObject]
+        guard let pullRequestTwo = Mapper<PullRequest>().map(JSON: dictionaryTwo) else {
+            return
+        }
+        
+        let pullRequests = [pullRequestTwo, pullRequestOne]
+        var open = 0.0
+        var closed = 0.0
+        for request in pullRequests {
+            if request.statePullRequest == .closed {
+                closed += 1
+            } else {
+                open += 1
+            }
+        }
+        XCTAssertEqual(open, 0)
+        XCTAssertEqual(closed, 2)
+    }
 }

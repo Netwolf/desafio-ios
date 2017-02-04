@@ -142,6 +142,10 @@ class RepositoryViewController: UIViewController {
                 return fullName.lowercased().contains(text.lowercased())
             })
         }
+        if arrayRepositoriesFiltered.count == 0 && tableView.emptyDataSetDelegate == nil && tableView.emptyDataSetSource == nil {
+            tableView.emptyDataSetSource = self
+            tableView.emptyDataSetDelegate = self
+        }
         stopRefresh()
         tableView.reloadData()
     }
@@ -158,11 +162,12 @@ class RepositoryViewController: UIViewController {
     }
     
     func timerLoadRepositoriesByName() {
-        if let search = searchBar.text {
-            if !search.isBlank() {
-                page = 1
-                loadRepositories()
-            }
+        guard let searchText = searchBar.text else {
+            return
+        }
+        if !searchText.isBlank() {
+            page = 1
+            loadRepositories()
         }
     }
 }
@@ -261,12 +266,13 @@ extension RepositoryViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         stopIdleTimer()
-        if let search = searchBar.text {
-            if !search.isBlank() {
-                page = 1
-                loadRepositories()
-                searchBar.resignFirstResponder()
-            }
+        guard let searchText = searchBar.text else {
+            return
+        }
+        if !searchText.isBlank() {
+            page = 1
+            loadRepositories()
+            searchBar.resignFirstResponder()
         }
     }
 }

@@ -35,6 +35,7 @@
 		7F29FDBE1E02327A0053CC05 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F29FDBD1E02327A0053CC05 /* Extensions.swift */; };
 		7F29FDC01E0237FC0053CC05 /* InternetMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F29FDBF1E0237FC0053CC05 /* InternetMonitor.swift */; };
 		7F96AC431E4404D100CA0B2C /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F96AC421E4404D100CA0B2C /* Owner.swift */; };
+		7FBD07691E462F89002CC757 /* RepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBD07681E462F89002CC757 /* RepositoryTests.swift */; };
 		AEFEBD321E451D9600453CC6 /* PullRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFEBD311E451D9600453CC6 /* PullRequestCell.swift */; };
 		AEFEBD341E451EB700453CC6 /* RepositoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEFEBD331E451EB700453CC6 /* RepositoryViewController.swift */; };
 		FE4BCA7198E893DB010FFAD8 /* Pods_CodeChallengeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6190C67EF007FCC126D7011A /* Pods_CodeChallengeTests.framework */; };
@@ -91,6 +92,7 @@
 		7F29FDBD1E02327A0053CC05 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = CodeChallenge/Utils/Extensions.swift; sourceTree = SOURCE_ROOT; };
 		7F29FDBF1E0237FC0053CC05 /* InternetMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InternetMonitor.swift; path = CodeChallenge/Utils/InternetMonitor.swift; sourceTree = SOURCE_ROOT; };
 		7F96AC421E4404D100CA0B2C /* Owner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Owner.swift; path = CodeChallenge/Model/Owner.swift; sourceTree = SOURCE_ROOT; };
+		7FBD07681E462F89002CC757 /* RepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTests.swift; sourceTree = "<group>"; };
 		A297A54D3776E2F588BC4A47 /* Pods-CodeChallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeChallenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeChallenge/Pods-CodeChallenge.release.xcconfig"; sourceTree = "<group>"; };
 		A78CFD11B4BC2A8C86A15449 /* Pods-CodeChallengeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeChallengeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeChallengeTests/Pods-CodeChallengeTests.release.xcconfig"; sourceTree = "<group>"; };
 		AEFEBD311E451D9600453CC6 /* PullRequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PullRequestCell.swift; path = CodeChallenge/Views/Cells/PullRequestCell.swift; sourceTree = SOURCE_ROOT; };
@@ -161,6 +163,7 @@
 				7F0A53FE1E45777600C0DD34 /* PullRequestTests.swift */,
 				7F0A53E61E455EF600C0DD34 /* CodeChallengeTests.swift */,
 				7F0A53E71E455EF600C0DD34 /* Info.plist */,
+				7FBD07681E462F89002CC757 /* RepositoryTests.swift */,
 			);
 			path = CodeChallengeTests;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				7F0A53ED1E456A7300C0DD34 /* User.swift in Sources */,
 				7F0A53EC1E456A5B00C0DD34 /* PullRequest.swift in Sources */,
 				7F0A53FF1E45777600C0DD34 /* PullRequestTests.swift in Sources */,
+				7FBD07691E462F89002CC757 /* RepositoryTests.swift in Sources */,
 				7F0A53E81E455EF600C0DD34 /* CodeChallengeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

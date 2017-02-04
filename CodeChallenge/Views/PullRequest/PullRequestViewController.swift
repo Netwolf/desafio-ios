@@ -15,7 +15,7 @@ class PullRequestViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var labelOpened: UILabel!
     @IBOutlet weak var labelClosed: UILabel!
-
+    
     let searchBar: UISearchBar = UISearchBar()
     var repositoryDetailed: Repository!
     var arrayPullRequests = [PullRequest]()
@@ -139,7 +139,7 @@ class PullRequestViewController: UIViewController {
         navigationController?.visibleViewController?.navigationItem.rightBarButtonItems = [buttonSearch!]
         tableView.reloadData()
         PullRequestController.sharedInstance.calculateOpenAndClosedRequests(pullRequests: arrayPullRequests)
-
+        
     }
     
     func loadPullRequests() {
@@ -159,10 +159,14 @@ class PullRequestViewController: UIViewController {
                 return title.lowercased().contains(text.lowercased())
             })
         }
+        if arrayPullRequestsFiltered.count == 0 && tableView.emptyDataSetDelegate == nil && tableView.emptyDataSetSource == nil {
+            tableView.emptyDataSetSource = self
+            tableView.emptyDataSetDelegate = self
+        }
         stopRefresh()
         tableView.reloadData()
         PullRequestController.sharedInstance.calculateOpenAndClosedRequests(pullRequests: arrayPullRequestsFiltered)
-
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -176,10 +180,11 @@ class PullRequestViewController: UIViewController {
     }
     
     func timerLoadPullRepositoryByName() {
-        if let search = searchBar.text {
-            if !search.isBlank() {
-                loadPullRequests()
-            }
+        guard let searchText = searchBar.text else {
+            return
+        }
+        if !searchText.isBlank() {
+            loadPullRequests()
         }
     }
 }
@@ -191,7 +196,7 @@ extension PullRequestViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDeleg
     }
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "No pull requests ounded"
+        let text = "No pull requests founded"
         let attribs = [
             NSFontAttributeName: UIFont.boldSystemFont(ofSize: 18),
             NSForegroundColorAttributeName: UIColor.darkGray
@@ -292,11 +297,12 @@ extension PullRequestViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         stopIdleTimer()
-        if let search = searchBar.text {
-            if !search.isBlank() {
-                loadPullRequests()
-                searchBar.resignFirstResponder()
-            }
+        guard let searchText = searchBar.text else {
+            return
+        }
+        if !searchText.isBlank() {
+            loadPullRequests()
+            searchBar.resignFirstResponder()
         }
     }
 }
