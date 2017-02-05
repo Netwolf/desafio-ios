@@ -150,6 +150,20 @@ class PullRequestViewController: UIViewController {
         }
     }
     
+    func reloadEmptyTableView() {
+        if isFilterName == true {
+            if arrayPullRequestsFiltered.count == 0 && tableView.emptyDataSetDelegate == nil && tableView.emptyDataSetSource == nil {
+                tableView.emptyDataSetSource = self
+                tableView.emptyDataSetDelegate = self
+            }
+        } else {
+            if arrayPullRequests.count == 0 && tableView.emptyDataSetDelegate == nil && tableView.emptyDataSetSource == nil {
+                tableView.emptyDataSetSource = self
+                tableView.emptyDataSetDelegate = self
+            }
+        }
+    }
+    
     func filterByName() {
         if let text = searchBar.text {
             arrayPullRequestsFiltered = arrayPullRequests.filter({ pullRequest -> Bool in
@@ -159,10 +173,7 @@ class PullRequestViewController: UIViewController {
                 return title.lowercased().contains(text.lowercased())
             })
         }
-        if arrayPullRequestsFiltered.count == 0 && tableView.emptyDataSetDelegate == nil && tableView.emptyDataSetSource == nil {
-            tableView.emptyDataSetSource = self
-            tableView.emptyDataSetDelegate = self
-        }
+        reloadEmptyTableView()
         stopRefresh()
         tableView.reloadData()
         PullRequestController.sharedInstance.calculateOpenAndClosedRequests(pullRequests: arrayPullRequestsFiltered)
@@ -271,6 +282,7 @@ extension PullRequestViewController: UITableViewDelegate, UITableViewDataSource 
 extension PullRequestViewController: DelegatePullRequest {
     func pullRequestNotFoundWith(error: String) {
         _ = SweetAlert().showAlert("Error!", subTitle: error, style: AlertStyle.error)
+        reloadEmptyTableView()
         stopRefresh()
     }
     

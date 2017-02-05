@@ -142,10 +142,7 @@ class RepositoryViewController: UIViewController {
                 return fullName.lowercased().contains(text.lowercased())
             })
         }
-        if arrayRepositoriesFiltered.count == 0 && tableView.emptyDataSetDelegate == nil && tableView.emptyDataSetSource == nil {
-            tableView.emptyDataSetSource = self
-            tableView.emptyDataSetDelegate = self
-        }
+        reloadEmptyTableView()
         stopRefresh()
         tableView.reloadData()
     }
@@ -154,6 +151,20 @@ class RepositoryViewController: UIViewController {
         if segue.identifier == Constants.Segue.DetailRepositorySegue {
             let vc = segue.destination as! PullRequestViewController
             vc.repositoryDetailed = repositorySelected
+        }
+    }
+    
+    func reloadEmptyTableView() {
+        if isFilterName == true {
+            if arrayRepositoriesFiltered.count == 0 && tableView.emptyDataSetDelegate == nil && tableView.emptyDataSetSource == nil {
+                tableView.emptyDataSetSource = self
+                tableView.emptyDataSetDelegate = self
+            }
+        } else {
+            if arrayRepositories.count == 0 && tableView.emptyDataSetDelegate == nil && tableView.emptyDataSetSource == nil {
+                tableView.emptyDataSetSource = self
+                tableView.emptyDataSetDelegate = self
+            }
         }
     }
     
@@ -280,6 +291,7 @@ extension RepositoryViewController: UISearchBarDelegate {
 extension RepositoryViewController: DelegateRepository {
     func repositoriesNotFoundWith(error: String) {
         _ = SweetAlert().showAlert("Error!", subTitle: error, style: AlertStyle.error)
+        reloadEmptyTableView()
         stopRefresh()
     }
     
